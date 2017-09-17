@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # Third Party Libarary
     'django_extensions',
+
     # Django App
     'member',
     'movie',
