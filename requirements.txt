@@ -1,6 +1,11 @@
+cycler==0.10.0
 Django==1.11.5
 django-extensions==1.9.0
+matplotlib==2.0.2
+numpy==1.13.1
 olefile==0.44
 Pillow==4.2.1
+pyparsing==2.2.0
+python-dateutil==2.6.1
 pytz==2017.2
 six==1.10.0
