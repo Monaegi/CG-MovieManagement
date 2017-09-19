@@ -2,6 +2,7 @@ import datetime
 
 from io import StringIO
 import django
+from django.http import HttpResponse
 from django.shortcuts import render
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -44,11 +45,12 @@ def statistics(request):
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
     # graphic = StringIO.StringIO()
-    response = django.http.HttpResponse(content_type='image/png')
+    response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
+    mpl.pyplot.close(fig)
 
-    # context = {
-    #     'graphic': graphic,
-    # }
+    context = {
+        'graphic': fig,
+    }
 
-    return render(request, 'statistics/statistics.html')
+    return render(request, 'statistics/statistics.html', context=context)
