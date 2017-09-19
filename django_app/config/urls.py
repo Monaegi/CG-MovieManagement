@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
@@ -23,7 +23,7 @@ from movie import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', views.index),
-    url(r'^statistics/', views.statistics)
+    url(r'^movie/', include('movie.urls'))
 ]
 
 # /static/에 대한 요청을 STATIC_ROOT 경로의 파일에서 찾는다
