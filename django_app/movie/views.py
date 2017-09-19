@@ -48,5 +48,7 @@ def statistics(request):
     canvas.print_png(response)
     mpl.pyplot.close(fig)
 
-
     return render(request, 'statistics/statistics.html')
+
+def search(request):
+    pass
