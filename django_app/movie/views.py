@@ -44,13 +44,9 @@ def statistics(request):
 
     fig.autofmt_xdate()
     canvas = FigureCanvas(fig)
-    # graphic = StringIO.StringIO()
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
     mpl.pyplot.close(fig)
 
-    context = {
-        'graphic': fig,
-    }
 
-    return render(request, 'statistics/statistics.html', context=context)
+    return render(request, 'statistics/statistics.html')
