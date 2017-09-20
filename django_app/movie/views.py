@@ -2,6 +2,8 @@ import datetime
 import json
 
 from io import StringIO
+from pprint import pprint
+
 import django
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -57,8 +59,6 @@ def statistics(request):
 def search(request):
     import urllib.request
 
-    print("################ : ", request.method)
-
     if request.method == 'GET':
         config_secret_debug = json.loads(open(CONFIG_SECRET_DEBUG_FILE).read())
         client_id = config_secret_debug['NAVER']['CLIENT_ID']
@@ -74,7 +74,24 @@ def search(request):
         if (rescode == 200):
             response_body = response.read()
             result = json.loads(response_body.decode('utf-8'))
+            items = result.get('items')
+            print(result.get('items'))
+            # print("display : ", result.get('display'))
+            pprint(result)
+            #
+            # print(len(result.get('items')))
+            # for index in range(0, len(result.get('items'))):
+            #     title += "".join(result.get('items')[index]['title'])
+            #     link = result.get('items')[index]['title']
+            #     image = result.get('items')[index]['image']
+            #     subtitle = result.get('items')[index]['subtitle']
+            #     pubDate = result.get('items')[index]['pubDate']
+            #     director = result.get('items')[index]['director']
+            #     actor = result.get('items')[index]['actor']
+            #     userRating = result.get('items')[index]['userRating']
+            #
+            # print("출력 : ", title)
             context = {
-                'result': result
+                'items': items
             }
             return render(request, 'search/search.html', context=context)
