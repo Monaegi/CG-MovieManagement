@@ -1,23 +1,16 @@
 {% extends 'base/base.html' %}
 {% block content %}
 
+
   <h1> 네이버 영화 검색 API</h1>
 
 
   <form action="{% url 'movie:api_search' %}" method="GET">
-      <input type="text" name="q" placeholder="검색">
+      <input name="q" placeholder="검색할 단어를 입력">
       <input type="submit" value="검색">
   </form>
-  <div>
-  {% for item in items %}
 
-      <ul>
-          <div>{{ forloop.counter }} <img src="{{item.image}}" alt=""> : {{ item.title|safe }} ( {{item.pubDate}} ) : {{ item.director }} : {{ item.actor }} 평점 : {{ item.userRating }}</div>
-      </ul>
-  {% endfor %}
-  </div>
-
- <!-- Trigger the modal with a button -->
+  <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">이번주 영화로 선정하기</button>
 
   <!-- Modal -->
@@ -42,9 +35,29 @@
   </div>
   <!-- Modal End -->
 
-  <div>
-    <form action="" method="GET">
-      <input type="submit" value="이번주 영화로 추가하기">
-    </form>
-  </div>
-{% endblock %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>포스터</th>
+        <th>제목(출시연도)</th>
+        <th>감독</th>
+        <th>배우</th>
+        <th>평점</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td> <img src="{{item.image}}" alt="" width="110" height="150"> </td>
+          <td> {{ item.title|safe }}( {{ item.pubDate }} )</td>
+          <td> {{ item.director }}</td>
+          <td> {{ item.actor }}</td>
+          <td> {{ item.userRating }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+ {% endblock %}

@@ -1,10 +1,9 @@
 import datetime
 import json
+import urllib.request
 
-from io import StringIO
 from pprint import pprint
 
-import django
 from django.http import HttpResponse
 from django.shortcuts import render
 import matplotlib as mpl
@@ -22,7 +21,6 @@ def statistics(request):
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
-    from matplotlib.dates import DateFormatter
 
     fig = Figure()
     now = datetime.datetime.now()
@@ -40,8 +38,7 @@ def statistics(request):
 
     # Plot 옵션 설정 및 꾸미기
     plt.figure(figsize=(7, 4))  # plot의 모양. 가로 세로가 7인치, 4인치 비로 설정
-    plt.plot(value.cumsum(), 'b',
-             lw=1.5)  # plot 함수 호출 numpy.cumsum() : plot의 새로운 figure을 생성하는 함수. 'b' : 파란색, w=1.5(표시할 스타일)
+    plt.plot(value.cumsum(), 'b', lw=1.5)  # plot 함수 호출 numpy.cumsum() : plot의 새로운 figure을 생성하는 함수. 'b' : 파란색, w=1.5(표시할 스타일)
     plt.plot(value.cumsum(), 'ro')  # plot 함수 호출 'ro'는 빨간색 동그라미를 의미
     plt.xlabel('index')  # x축 이름 설정
     plt.ylabel('value')  # y축 이름 설정
@@ -57,7 +54,6 @@ def statistics(request):
     return render(request, 'statistics/statistics.html')
 
 def search(request):
-    import urllib.request
 
     if request.method == 'GET':
         config_secret_debug = json.loads(open(CONFIG_SECRET_DEBUG_FILE).read())
@@ -75,23 +71,13 @@ def search(request):
             response_body = response.read()
             result = json.loads(response_body.decode('utf-8'))
             items = result.get('items')
-            print(result.get('items'))
-            # print("display : ", result.get('display'))
             pprint(result)
-            #
-            # print(len(result.get('items')))
-            # for index in range(0, len(result.get('items'))):
-            #     title += "".join(result.get('items')[index]['title'])
-            #     link = result.get('items')[index]['title']
-            #     image = result.get('items')[index]['image']
-            #     subtitle = result.get('items')[index]['subtitle']
-            #     pubDate = result.get('items')[index]['pubDate']
-            #     director = result.get('items')[index]['director']
-            #     actor = result.get('items')[index]['actor']
-            #     userRating = result.get('items')[index]['userRating']
-            #
-            # print("출력 : ", title)
+
             context = {
                 'items': items
             }
             return render(request, 'search/search.html', context=context)
+
+
+def app_test(request):
+    return render(request, 'app_test/test.html')
