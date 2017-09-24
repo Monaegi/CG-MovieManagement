@@ -1,32 +1,31 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block content %}
-
-
   <h1> 네이버 영화 검색 API</h1>
 
-
-  <form action="{% url 'movie:api_search' %}" method="GET">
-      <input name="q" placeholder="검색할 단어를 입력">
-      <input type="submit" value="검색">
+  <form action="{% url 'movie:api_search' %}" method="GET" >
+      <input class="form-control" name="q" placeholder="검색할 단어를 입력">
+      <input class="btn btn-primary" type="submit" value="검색">
   </form>
 
   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">이번주 영화로 선정하기</button>
+  <!--<button type="button" class="btn btn-info btn-lg modal-lg" data-toggle="modal" data-target="#myModal">이번주 영화로 선정하기</button>-->
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog modal-lg">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">세부사항 설정</h4>
         </div>
         <div class="modal-body">
-          <p>Some text in the modal.</p>
+          <img id="movieImage" src="">
+          <p><input type="text" class="input-sm" id="movieTitle"/></p>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">최종선정</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -35,8 +34,8 @@
   </div>
   <!-- Modal End -->
 
-  <table class="table">
-    <thead>
+  <table class="table table-condensed table-hover table-bordered" id="movie_api">
+    <thead class="thead-inverse">
       <tr>
         <th>번호</th>
         <th>포스터</th>
@@ -48,10 +47,19 @@
     </thead>
     <tbody>
       {% for item in items %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td> <img src="{{item.image}}" alt="" width="110" height="150"> </td>
-          <td> {{ item.title|safe }}( {{ item.pubDate }} )</td>
+        <tr id="tr_{{ forloop.counter }}">
+          <td>{{ forloop.counter }}</td>
+          <td>
+          {% if item.image %}
+            <!--이미지가 있으면 네이버가 제공하는 포스터 사용-->
+            <img src="{{item.image}}"  width="110" height="150" data-toggle="modal" data-img-url="{{item.image}}" >
+          {% else %}
+            <!--이미지가 없으면 디폴트 이미지를 출력-->
+            <img src="{% static 'movie/no-image.png' %}" alt="" width="110" height="150">
+          {% endif %}
+          </td>
+
+          <td> {{ item.title|safe }} ({{ item.pubDate }})</td>
           <td> {{ item.director }}</td>
           <td> {{ item.actor }}</td>
           <td> {{ item.userRating }}</td>
@@ -59,5 +67,5 @@
       {% endfor %}
     </tbody>
   </table>
+{% endblock %}
 
- {% endblock %}

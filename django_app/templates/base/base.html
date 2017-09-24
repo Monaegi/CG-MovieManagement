@@ -1128,6 +1128,16 @@
     <!-- Custom scripts for this page-->
     <script src="{% static 'bootstrap/js/sb-admin-datatables.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/sb-admin-charts.min.js' %}"></script>
+    <script>
+    $('table tbody tr:has(td)').on('click',function(){
+      $("#myModal").modal("show");
+      $("#txtfname").val($(this).closest('tr').children()[0].textContent);
+
+      var $row = $(this);
+      $("#movieImage").attr('src', $row.find('img').attr('src'));
+      $("#movieTitle").val($(this).closest('tr').children()[2].textContent);
+    });
+    </script>
   </div>
 </body>
 
