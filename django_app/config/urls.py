@@ -20,9 +20,10 @@ from django.contrib import admin
 
 from movie import views
 
+app_name = 'base'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', views.index),
+    url(r'^index/', views.index, name='base'),
     url(r'^movie/', include('movie.urls'))
 ]
 

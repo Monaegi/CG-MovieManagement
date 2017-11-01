@@ -19,7 +19,6 @@ def index(request):
 
 def statistics(request):
 
-    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
     from matplotlib.figure import Figure
 
     fig = Figure()
@@ -77,6 +76,11 @@ def search(request):
                 'items': items
             }
             return render(request, 'search/search.html', context=context)
+
+def select(request):
+    if request.method == 'GET':
+        print(request.GET)
+    return render(request, 'search/search.html')
 
 
 def app_test(request):
