@@ -78,6 +78,7 @@ def search(request):
             return render(request, 'search/search.html', context=context)
 
 def select(request):
+    print(request)
     if request.method == 'GET':
         print(request.GET)
     return render(request, 'search/search.html')
