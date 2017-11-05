@@ -22,7 +22,7 @@
               <div class="input-group">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <!--<h4 class="modal-title"><p><input type="text" class="input-sm" id="movieTitle"/></p></h4>-->
-                <h3><input type="text" name="nameMovieTitle" id="movieTitle" class="input-sm"></h3>
+                <h3><input type="text" name="movieTitle" id="movieTitle" class="input-sm"></h3>
                 <!--<h4<input type="text" class="input-sm" id="movieTitle"/>-->
               </div>
              </div>
@@ -31,10 +31,10 @@
             <div class="modal-body">
               <img id="movieImage" src="{{ item.image }}" width="400" height="400">
               <button>사진 변경</button>
-              <div>감독 <input type="text" name="movieDirector" id="movieDirector" class="input-sm"></div>
-              <div>출연진<input type="text" name="movieActor" id="movieActor" class="input-sm"></div>
-              <div>유저 평점<input type="text" name="movieRating" id="movieRating"></div>
-              <div>이미지 링크<input type="text" name="movieImageLink" id="movieImageLink"></div>
+              <input type="text" name="movieDirector" id="movieDirector" class="input-sm" style="display:none;">
+              <input type="text" name="movieActor" id="movieActor" class="input-sm" style="display:none;">
+              <input type="text" name="movieRating" id="movieRating" style="display:none;">
+              <input type="text" name="movieImageLink" id="movieImageLink" style="display:none;">
 
               <!-- 캘린더 -->
               <div id="datetimepicker1" class="input-append date">

@@ -12,6 +12,7 @@ import numpy as np
 
 # Create your views here.
 from config.settings import CONFIG_SECRET_DEBUG_FILE
+from movie.models import Movie, SelectedMovie
 
 
 def index(request):
@@ -78,9 +79,15 @@ def search(request):
             return render(request, 'search/search.html', context=context)
 
 def select(request):
-    print(request)
+    print(request.GET)
     if request.method == 'GET':
-        print(request.GET)
+        title = request.GET.get('movieTitle')
+        director = request.GET.get('movieActor')
+        rating = request.GET.get('movieRating')
+        link = request.GET.get('movieImageLink')
+        dating = request.GET.get('idTourDateDetails')
+        # SelectedMovie.objects.save()
+        SelectedMovie.objects.create(title=title, director=director, userRating=rating, link=link, dating=dating)
     return render(request, 'search/search.html')
 
 

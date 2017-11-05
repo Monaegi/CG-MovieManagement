@@ -1,8 +1,12 @@
+import json
+
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Create your models here.
 from config import settings
 
+User = get_user_model()
 
 class Movie(models.Model):
     title = models.CharField(max_length=30)
@@ -24,6 +28,14 @@ class Movie(models.Model):
         through='Comment',
         related_name='user_rating'
     )
+
+
+class SelectedMovie(models.Model):
+    movie = models.ForeignKey(Movie)
+    selector = models.CharField(max_length=10)
+    selected_date = models.CharField(max_length=15)
+    reviewer = models.ManyToManyField(User)
+
 
 class Comment(models.Model):
     movie = models.ForeignKey(Movie)
